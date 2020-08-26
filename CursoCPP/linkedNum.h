@@ -11,6 +11,6 @@ namespace linkedNum {
     linkedInt* addToTail(linkedInt* head, linkedInt* tail, int addThis);
     void printList(linkedInt* head);
     void deleteList(linkedInt* head);
-};
+}
 #endif
 #pragma once

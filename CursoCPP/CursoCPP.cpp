@@ -1,69 +1,78 @@
-﻿#include <algorithm>
+﻿#include "stringArr.h"
 #include <iostream>
-#include <limits>
-#include <new>
+#include <string>
 #include <sstream>
 
+// The miminum value possible current demo option.
+constexpr int MIN_OPTION{ 1 };
+// The maximum value possible current demo option.
+constexpr int MAX_OPTION{ 2 };
 
-int getNumInput() {
-    int input{};
+// Prints the main options for this program on the console.
+void mainPrompt() {
+    std::cout << "Please choose one of the demos listed bellow to interact with it:\n";
+    std::cout << "\t 1. create a list of names and show them sorted.\n";
+    std::cout << "\t 2. A linked list of numbers you can do some operations with.\n";
+    std::cout << "your selection (" << MIN_OPTION << "-" << MAX_OPTION <<"): ";
+}
 
-    while (true) {
-        std::cout << "How many names would you like to enter? ";
-        std::cin >> input;
+// Gets the demo selected by the user from the console.
+int userSelectedDemo() {
+    int demoSelected{ -1 };
 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        if (std::cin.fail() || input < 1) {
-            std::cin.clear();
-            std::cout << "Please enter a valid positive number.\n";
+    while ( true ) {
+        std::cin >> demoSelected;       
+
+        if (std::cin.fail() || demoSelected < MIN_OPTION || demoSelected > MAX_OPTION) {            // If reading from input fails or an invalid option is
+            std::cin.clear();                                                                       // given by the user the error flag will be toggle and
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');                     // the input buffer will be cleaned from any extra characters
+            std::cout << "You entered an incorrected option!\n";                                    // and an error message will be show to the user.
+            std::cout << "Please provide me with a correct number :C\n";
+
+            mainPrompt();                                                                           // The main prompt will be displayed again in case
+                                                                                                    // the user needs to read the options again.
         }
         else {
-            break;
+            break;                                                                                  // If there was no error and everything went well, we
+                                                                                                    // break from the loop and
         }
     }
 
-    return input;
+    return demoSelected;                                                                            // we return the option the user gave.
 }
 
-std::string getName() {
-    std::string name{};
-    std::getline(std::cin, name);
 
-    return name;
-}
+// Runs the demo the user previously selected.
+void runSelectedDemo(int demo) {
+    std::cout << '\n';                                                                              //Line break to make the prompts of the demos more clear.
 
-void loadNames(std::string *names, int size) {
-    std::string inputName{};
-    for (int i{ 0 }; i < size; ++i) {
-        std::cout << "Enter name #" << i + 1 << ": ";
-        inputName = getName();
-
-        names[i] = inputName;
-    }
-
-    std::cout << '\n';
-}
-
-void printNames(std::string* names, int size) {
-    std::cout << "Here is your sorted list:\n";
-    for (int i{ 0 }; i < size; ++i) {
-        std::cout << "Name #" << i + 1 << ": " << names[i] << '\n';
+    switch (demo) {
+    case 1:
+        stringArr::mainDemo();
+        break;
+    case 2:
+        std::cout << "The connection to the linked list is still under construction :C\n";
+        break;
+    default:
+        break;
     }
 }
 
 int main() {
-    int numNames{ getNumInput() };
-    auto *names{ new std::string[numNames]{} };
 
-    loadNames(names, numNames);
+    std::cout << "Welcome to the main demo of my C++ repository!!\n\n";
 
-    std::sort(names, names + numNames);
+    mainPrompt();
 
-    printNames(names, numNames);
+    int userDemoSelected{ userSelectedDemo() };
 
-    delete[] names;
+    /*
+    * The input buffer is cleaned in case there are any invalid characters 
+    * on it that we need to ignore, before we execute any of the demos.
+    */
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    names = nullptr;
+    runSelectedDemo( userDemoSelected );
 
     return 0;
 }
