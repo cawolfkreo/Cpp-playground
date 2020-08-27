@@ -72,11 +72,16 @@ namespace linkedNum {
     }
 
     void printList(linkedInt *head) {
-        linkedInt *current{ head };
-        for (long i{ 1 }; current != nullptr; ++i) {
-            std::cout << i << ". \t" << current->data << '\n';
-            current = current->next;
+        if (head->size == 0) {
+            std::cout << "The list is empty! :C\n";
         }
+        else {
+            linkedInt* current{ head };
+            for (long i{ 1 }; current != nullptr; ++i) {
+                std::cout << i << ". \t" << current->data << '\n';
+                current = current->next;
+            }
+        }        
     }
 
     void deleteList(linkedInt *head) {

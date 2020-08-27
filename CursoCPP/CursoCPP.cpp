@@ -5,9 +5,9 @@
 #include <sstream>
 
 namespace constants {
-    // The miminum value possible current demo option.
+    // The miminum possible value, currently for demo options.
     constexpr int MIN_OPTION{ 1 };
-    // The maximum value possible current demo option.
+    // The maximum possible value, currently for demo options.
     constexpr int MAX_OPTION{ 2 };
 }
 
