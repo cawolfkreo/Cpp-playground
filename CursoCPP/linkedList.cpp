@@ -47,7 +47,7 @@ namespace linkedList {
 		std::cout << "The list currently look like this:\n";
 		linkedNum::printList(head);
 		/*
-		* Double line break to separate the previous messages 
+		* Double line break to separate the previous messages
 		* from the list of options.
 		*/
 		std::cout << "\n\n";
@@ -88,15 +88,14 @@ namespace linkedList {
 	Gets a number from the user and adds it to the list
 	*/
 	linkedNum::linkedInt* addTail(linkedNum::linkedInt *head, linkedNum::linkedInt *tail) {
-		linkedNum::linkedInt *current{ head };
 		std::string question{ "Enter the number to add at the end of the list: " };
 		std::cout << question;
 
 		int numToAdd{ getNumberFromUsr(question) };
 
-		linkedNum::addToTail(head, tail, numToAdd);
+		linkedNum::linkedInt* newTail{ linkedNum::addToTail(head, tail, numToAdd) };
 
-		return current;
+		return newTail;
 	}
 
 	/*
@@ -106,12 +105,12 @@ namespace linkedList {
 	linkedNum::linkedInt* addToListPosition(linkedNum::linkedInt *head, int data, int position) {
 		linkedNum::linkedInt *list{ head };
 		if (position >= head->size) {																			// If the position to add the element is not valid, an error
-			std::cout << "You tried to add "<< data <<" to a position out of bounds!\n";						// message will be show in the console saying that the position
+			std::cout << "You tried to add " << data << " to a position out of bounds!\n";						// message will be show in the console saying that the position
 			std::cout << "please make sure you don't add something to a position above " << (head->size) + 1;	// position was invalid and it cannot be bigger than the size of
 			std::cout << "\n\n";																				// the list. A double line break to make this message clearer.
 		}
 		else if (position == 0) {
-			linkedNum::linkedInt *newItem = new (std::nothrow) linkedNum::linkedInt;
+			linkedNum::linkedInt* newItem = new (std::nothrow) linkedNum::linkedInt;
 			if (newItem != nullptr) {																			// If the position is the head of the list, then a new node is
 				int newSize{ ++list->size };																	// created and if the memory allocation had no issues (the
 				*newItem = { newSize, data, list };																// pointer is not nullptr) will point to the previous head of
@@ -144,14 +143,13 @@ namespace linkedList {
 		}
 	}
 
-	linkedNum::linkedInt* addToPositionInteractive(linkedNum::linkedInt* head) {
+	linkedNum::linkedInt* addToPositionInteractive(linkedNum::linkedInt *head) {
 
-		std::string dataQuest{ "Give me a the number to add on the list: " };
+		std::string dataQuest{ "Give me the number to add on the list: " };
 		std::cout << dataQuest;
 		int dataToAdd{ getNumberFromUsr(dataQuest) };
 
-		std::string positQuest{ "Give me a the position to insert that number: " };
-		std::cout << positQuest;
+		std::string positQuest{ "Give me the position to insert that number: " };
 		int positionToAdd{ getPositionUsr(positQuest) };
 
 		return addToListPosition(head, dataToAdd, positionToAdd - 1);
@@ -161,7 +159,7 @@ namespace linkedList {
 	Removes an element from the list in the position specified. The position provided cannot be
 	greater than the size of the list (bigger than it's size).
 	*/
-	linkedNum::linkedInt* removeFromList(linkedNum::linkedInt* head, int position) {
+	linkedNum::linkedInt* removeFromList(linkedNum::linkedInt *head, int position) {
 		linkedNum::linkedInt *list{ head };
 
 		if (position >= head->size) {																				// If the element to remove lies outside of the size of the
@@ -186,10 +184,25 @@ namespace linkedList {
 		return list;
 	}
 
+	linkedNum::linkedInt* removeInteract(linkedNum::linkedInt *head) {
+		std::string positQuest{ "Give me the position to remove that number: " };
+		int positionToAdd{ getPositionUsr(positQuest) };
+
+		return removeFromList(head, positionToAdd - 1);
+	}
+
+	void showPosInteract(linkedNum::linkedInt *head) {
+		std::string positQuest{ "Give me the position of the number to show: " };
+		int positionToAdd{ getPositionUsr(positQuest) };
+
+		linkedNum::linkedInt *nodeFound { linkedNum::getPosition(head, positionToAdd - 1) };
+		std::cout << "The number in position " << positionToAdd << " is " << nodeFound->data << " \n";
+	}
+
 	void mainDemo() {
 		std::cout << "Welcome to the interactive linked list demo!\n";
 		std::cout << "Here you can interact with a linked list data ";
-		std::cout <<  "structure.\n\n";
+		std::cout << "structure.\n\n";
 
 		int userSelection{ 0 };
 
@@ -197,10 +210,10 @@ namespace linkedList {
 		* We created a new list and we save a reference to it and
 		* also to it's tail, which right now is the list itself.
 		*/
-		linkedNum::linkedInt* list{ linkedNum::createList() };
-		linkedNum::linkedInt* listTail{ list };
+		linkedNum::linkedInt *list{ linkedNum::createList() };
+		linkedNum::linkedInt *listTail{ list };
 
-		bool runDemo{true};
+		bool runDemo{ true };
 
 		while (runDemo) {
 			mainPrompt(list, constants::MIN_OPTION, constants::MAX_OPTION);
@@ -218,9 +231,11 @@ namespace linkedList {
 				break;
 			case 3:
 				//Remove from position.
+				list = removeInteract(list);
 				break;
 			case 4:
 				//Show element from position.
+				showPosInteract(list);
 				break;
 			case 5:
 				//End the demo.
@@ -229,7 +244,7 @@ namespace linkedList {
 			default:
 				break;
 			}
-		}		
+		}
 
 		linkedNum::deleteList(list);
 		list = nullptr;
