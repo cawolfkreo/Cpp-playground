@@ -1,4 +1,5 @@
-﻿#include "stringArr.h"
+﻿#include "linkedList.h"
+#include "stringArr.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -51,7 +52,7 @@ void runSelectedDemo(int demo) {
         stringArr::mainDemo();
         break;
     case 2:
-        std::cout << "The connection to the linked list is still under construction :C\n";
+        linkedList::mainDemo();
         break;
     default:
         break;

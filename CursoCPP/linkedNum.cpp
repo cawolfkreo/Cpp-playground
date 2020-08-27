@@ -37,6 +37,30 @@ namespace linkedNum {
         return current;
     }
 
+    /*
+    Adds a number to a particual position of the list except the first [0] position.
+    The position cannot be bigger than the size of the list (the current size -1).
+    */
+    linkedInt* addToPosition(linkedInt *head, int data, int position) {
+        linkedInt *current{ head };
+        int positionToAdd{ 0 };
+
+        while (positionToAdd < (position - 1)) {
+            current = current->next;
+            ++positionToAdd;
+        }
+
+        linkedInt *nodeToAdd = new (std::nothrow) linkedInt;
+        
+        if ( nodeToAdd != nullptr ) {
+            *nodeToAdd = { 1, data, current->next };
+            current->next = nodeToAdd;
+            ++(head->size);
+        }        
+
+        return head;
+    }
+
     void printList(linkedInt *head) {
         linkedInt *current{ head };
         for (long i{ 1 }; current != nullptr; ++i) {
