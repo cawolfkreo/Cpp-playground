@@ -5,7 +5,7 @@
 namespace linkedNum {
 
     linkedInt* createList() {
-        linkedInt* ptr = new (std::nothrow) linkedInt;
+        linkedInt *ptr = new (std::nothrow) linkedInt;
 
         if (ptr != nullptr) {
             *ptr = { 0, -1, nullptr };
@@ -14,15 +14,15 @@ namespace linkedNum {
         return ptr;
     }
 
-    linkedInt* addToTail(linkedInt* head, linkedInt* tail, int addThis) {
-        linkedInt* current{ head };
+    linkedInt* addToTail(linkedInt *head, linkedInt *tail, int addThis) {
+        linkedInt *current{ head };
 
         if (head->size == 0) {
             *current = { 1, addThis, nullptr };
         }
         else {
             current = tail;
-            linkedInt* newTail = new (std::nothrow) linkedInt;
+            linkedInt *newTail = new (std::nothrow) linkedInt;
 
             if (newTail != nullptr) {
                 *newTail = { 1, addThis, nullptr };
@@ -37,17 +37,17 @@ namespace linkedNum {
         return current;
     }
 
-    void printList(linkedInt* head) {
-        linkedInt* current{ head };
+    void printList(linkedInt *head) {
+        linkedInt *current{ head };
         for (long i{ 1 }; current != nullptr; ++i) {
             std::cout << i << ". \t" << current->data << '\n';
             current = current->next;
         }
     }
 
-    void deleteList(linkedInt* head) {
-        linkedInt* current{ head };
-        linkedInt* next{ nullptr };
+    void deleteList(linkedInt *head) {
+        linkedInt *current{ head };
+        linkedInt *next{ nullptr };
 
         while (current != nullptr) {
             next = current->next;
