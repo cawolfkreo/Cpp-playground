@@ -10,7 +10,35 @@ namespace linkedList {
 		// The miminum possible value currently, for list interaction.
 		constexpr int MIN_OPTION{ 1 };
 		// The maximum possible value currently, for list interactionn.
-		constexpr int MAX_OPTION{ 4 };
+		constexpr int MAX_OPTION{ 5 };
+	}
+
+	/*
+	Gets a number from the user input. If the user enters an invalid option,
+	the question passed by parameter will be displayed on the console.
+	*/
+	int getNumber(std::string inputQuestion) {
+		int userNumber{ -1 };
+		bool foundErrors{ false };
+
+		while (true) {
+			std::cin >> userNumber;
+
+			foundErrors = std::cin.fail();
+			if (foundErrors) {
+				std::cin.clear();
+			}
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			if (foundErrors) {
+				std::cout << "You entered an invalid option!\n";
+				std::cout << inputQuestion;
+				std::cout << "\n\n";
+			}
+			else {
+				return userNumber;
+			}
+		}
 	}
 
 	/*
@@ -30,6 +58,7 @@ namespace linkedList {
 		std::cout << "2. Add an element to an specific position of the list.\n";
 		std::cout << "3. Remove an element from a position of the list.\n";
 		std::cout << "4. show an element from a position of the list.\n";
+		std::cout << "5. Exit the demo (and finish the program).\n";
 		std::cout << "What would you like to do? (" << minOpt << " - ";
 		std::cout << maxOpt << "): ";
 	}
@@ -62,8 +91,19 @@ namespace linkedList {
 		}
 	}
 
-	linkedNum::linkedInt* addTail(linkedNum::linkedInt* head, linkedNum::linkedInt* tail) {
+	/*
+	Gets a number from the user and adds it to the list
+	*/
+	linkedNum::linkedInt* addTail(linkedNum::linkedInt *head, linkedNum::linkedInt *tail) {
 		linkedNum::linkedInt *current{ head };
+		std::string question{ "Enter the number to add at the end of the list: " };
+		std::cout << question;
+
+		int numToAdd{ getNumber(question) };
+
+		linkedNum::addToTail(head, tail, numToAdd);
+
+		return current;
 	}
 
 	/*
@@ -137,27 +177,35 @@ namespace linkedList {
 		*/
 		linkedNum::linkedInt* list{ linkedNum::createList() };
 		linkedNum::linkedInt* listTail{ list };
-		mainPrompt(list, constants::MIN_OPTION, constants::MAX_OPTION);
 
-		userSelection = getSelectedOption(list, constants::MIN_OPTION, constants::MAX_OPTION);
+		bool runDemo{true};
 
-		switch (userSelection) {
-		//Add element to tail.
-		case 1:
-			listTail = addTail(list, listTail);
-			break;
-		//Add element to position.
-		case 2:
-			break;
-		//Remove from position.
-		case 3:
-			break;
-		//Show element from position.
-		case 4:
-			break;
-		default:
-			break;
-		}
+		while (runDemo) {
+			mainPrompt(list, constants::MIN_OPTION, constants::MAX_OPTION);
+
+			userSelection = getSelectedOption(list, constants::MIN_OPTION, constants::MAX_OPTION);
+
+			switch (userSelection) {
+				//Add element to tail.
+			case 1:
+				listTail = addTail(list, listTail);
+				break;
+				//Add element to position.
+			case 2:
+				break;
+				//Remove from position.
+			case 3:
+				break;
+				//Show element from position.
+			case 4:
+				break;
+			case 5:
+				runDemo = false;
+				break;
+			default:
+				break;
+			}
+		}		
 
 		linkedNum::deleteList(list);
 		list = nullptr;
