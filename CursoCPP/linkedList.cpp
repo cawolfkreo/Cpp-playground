@@ -103,7 +103,7 @@ namespace linkedList {
 	Adds a new element to a linked list in the position specified. The data added cannot be in a position
 	outside of the range of the list (bigger than it's size).
 	*/
-	linkedNum::linkedInt* addToListPosition(linkedNum::linkedInt* head, int data, int position) {
+	linkedNum::linkedInt* addToListPosition(linkedNum::linkedInt *head, int data, int position) {
 		linkedNum::linkedInt *list{ head };
 		if (position >= head->size) {																			// If the position to add the element is not valid, an error
 			std::cout << "You tried to add "<< data <<" to a position out of bounds!\n";						// message will be show in the console saying that the position
@@ -126,6 +126,35 @@ namespace linkedList {
 		* We return the list in case the head of the list was updated in any way.
 		*/
 		return list;
+	}
+
+	int getPositionUsr(std::string positQuest) {
+		std::cout << positQuest;
+		int positionToAdd{ 0 };
+
+		while (true) {
+			positionToAdd = getNumberFromUsr(positQuest);
+			if (positionToAdd < 1) {
+				std::cout << "Invalid list position!\n";
+				std::cout << positQuest;
+			}
+			else {
+				return positionToAdd;
+			}
+		}
+	}
+
+	linkedNum::linkedInt* addToPositionInteractive(linkedNum::linkedInt* head) {
+
+		std::string dataQuest{ "Give me a the number to add on the list: " };
+		std::cout << dataQuest;
+		int dataToAdd{ getNumberFromUsr(dataQuest) };
+
+		std::string positQuest{ "Give me a the position to insert that number: " };
+		std::cout << positQuest;
+		int positionToAdd{ getPositionUsr(positQuest) };
+
+		return addToListPosition(head, dataToAdd, positionToAdd - 1);
 	}
 
 	/*
@@ -179,20 +208,22 @@ namespace linkedList {
 			userSelection = getSelectedOption(list, constants::MIN_OPTION, constants::MAX_OPTION);
 
 			switch (userSelection) {
-				//Add element to tail.
 			case 1:
+				//Add element to tail.
 				listTail = addTail(list, listTail);
 				break;
-				//Add element to position.
 			case 2:
+				//Add element to position.
+				list = addToPositionInteractive(list);
 				break;
-				//Remove from position.
 			case 3:
+				//Remove from position.
 				break;
-				//Show element from position.
 			case 4:
+				//Show element from position.
 				break;
 			case 5:
+				//End the demo.
 				runDemo = false;
 				break;
 			default:
