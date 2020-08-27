@@ -17,7 +17,7 @@ namespace linkedList {
 	Gets a number from the user input. If the user enters an invalid option,
 	the question passed by parameter will be displayed on the console.
 	*/
-	int getNumber(std::string inputQuestion) {
+	int getNumberFromUsr(std::string inputQuestion) {
 		int userNumber{ -1 };
 		bool foundErrors{ false };
 
@@ -31,9 +31,8 @@ namespace linkedList {
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 			if (foundErrors) {
-				std::cout << "You entered an invalid option!\n";
+				std::cout << "Your input is invalid!\n";
 				std::cout << inputQuestion;
-				std::cout << "\n\n";
 			}
 			else {
 				return userNumber;
@@ -54,11 +53,11 @@ namespace linkedList {
 		std::cout << "\n\n";
 
 		std::cout << "You can do this actions to the list:\n";
-		std::cout << "1. Add an element to the tail of the list.\n";
-		std::cout << "2. Add an element to an specific position of the list.\n";
-		std::cout << "3. Remove an element from a position of the list.\n";
-		std::cout << "4. show an element from a position of the list.\n";
-		std::cout << "5. Exit the demo (and finish the program).\n";
+		std::cout << "\t1. Add an element to the tail of the list.\n";
+		std::cout << "\t2. Add an element to an specific position of the list.\n";
+		std::cout << "\t3. Remove an element from a position of the list.\n";
+		std::cout << "\t4. show an element from a position of the list.\n";
+		std::cout << "\t5. Exit the demo (and finish the program).\n";
 		std::cout << "What would you like to do? (" << minOpt << " - ";
 		std::cout << maxOpt << "): ";
 	}
@@ -68,21 +67,15 @@ namespace linkedList {
 	*/
 	int getSelectedOption(linkedNum::linkedInt *head, int minOpt, int maxOpt) {
 		int selectedOption{ -1 };
-		bool foundErrors{ false };
+
+		std::string question{ "Please send a number between " };
+		question.append(std::to_string(minOpt) + " and " + std::to_string(maxOpt));
+		question.append(": ");
 
 		while (true) {
-			std::cin >> selectedOption;
-
-			foundErrors = std::cin.fail();
-			if (foundErrors) {
-				std::cin.clear();
-			}
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-			if (foundErrors || selectedOption < minOpt || selectedOption > maxOpt) {
+			selectedOption = getNumberFromUsr(question);
+			if (selectedOption < minOpt || selectedOption > maxOpt) {
 				std::cout << "You entered an invalid option!\n";
-				std::cout << "Please send a number between " << minOpt << " and " << maxOpt << '.';
-				std::cout << "\n\n";
 				mainPrompt(head, minOpt, maxOpt);
 			}
 			else {
@@ -99,7 +92,7 @@ namespace linkedList {
 		std::string question{ "Enter the number to add at the end of the list: " };
 		std::cout << question;
 
-		int numToAdd{ getNumber(question) };
+		int numToAdd{ getNumberFromUsr(question) };
 
 		linkedNum::addToTail(head, tail, numToAdd);
 
