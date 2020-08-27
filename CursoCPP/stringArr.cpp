@@ -37,7 +37,7 @@ namespace stringArr {
     }
 
     //Saves all the names into an array of std::string (an array of strings).
-    void loadNames(std::string* names, int size) {
+    void loadNames(std::string *names, int size) {
         std::string inputName{};
         for (int i{ 0 }; i < size; ++i) {
             std::cout << "Enter name #" << i + 1 << ": ";
@@ -50,7 +50,7 @@ namespace stringArr {
     }
 
     // Prints all the names inside the array of std::string (an array of strings).
-    void printNames(std::string* names, int size) {
+    void printNames(std::string *names, int size) {
         std::cout << "Here is your sorted list:\n";
         for (int i{ 0 }; i < size; ++i) {
             std::cout << "Name #" << i + 1 << ": " << names[i] << '\n';
@@ -60,7 +60,7 @@ namespace stringArr {
     // Runs the demo inside of this program.
     void mainDemo() {
         int numNames{ getNumInput() };
-        auto* names{ new std::string[numNames]{} };
+        auto *names{ new std::string[numNames]{} };
 
         loadNames(names, numNames);
 
