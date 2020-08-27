@@ -38,27 +38,37 @@ namespace linkedNum {
     }
 
     /*
-    Adds a number to a particual position of the list except the first [0] position.
+    Adds a number to a particual position of the list except the first position [0].
     The position cannot be bigger than the size of the list (the current size -1).
     */
     linkedInt* addToPosition(linkedInt *head, int data, int position) {
-        linkedInt *current{ head };
-        int positionToAdd{ 0 };
+        linkedInt *previousNode{ getPosition(head, position - 1) };
 
-        while (positionToAdd < (position - 1)) {
-            current = current->next;
-            ++positionToAdd;
+        linkedInt* nodeToAdd = new (std::nothrow) linkedInt;
+
+        if (nodeToAdd != nullptr) {
+            *nodeToAdd = { 1, data, previousNode->next };
+            previousNode->next = nodeToAdd;
+            ++(head->size);
         }
 
-        linkedInt *nodeToAdd = new (std::nothrow) linkedInt;
-        
-        if ( nodeToAdd != nullptr ) {
-            *nodeToAdd = { 1, data, current->next };
-            current->next = nodeToAdd;
-            ++(head->size);
-        }        
-
         return head;
+    }
+
+    /*
+    Gets the node on the position specified by parameter.
+    The position cannot be bigger than the size of the list.
+    */
+    linkedInt* getPosition(linkedInt* head, int position) {
+        linkedInt* current{ head };
+        int currentPosition{ 0 };
+
+        while (currentPosition < position) {
+            current = current->next;
+            ++currentPosition;
+        }
+
+        return current;
     }
 
     void printList(linkedInt *head) {
@@ -83,4 +93,15 @@ namespace linkedNum {
         next = nullptr;
     }
 
+    linkedInt* deletePosition(linkedInt *head, int position) {
+        linkedInt *previous{ getPosition(head, position - 1) };
+        linkedInt *nodeToRemove{ previous->next };
+        previous->next = nodeToRemove->next;
+        nodeToRemove->next = nullptr;
+
+        delete nodeToRemove;
+        --(head->size);
+
+        return head;
+    }
 }
