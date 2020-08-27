@@ -58,8 +58,8 @@ namespace linkedList {
 		std::cout << "\t3. Remove an element from a position of the list.\n";
 		std::cout << "\t4. show an element from a position of the list.\n";
 		std::cout << "\t5. Exit the demo (and finish the program).\n";
-		std::cout << "What would you like to do? ( " << minOpt << " - ";
-		std::cout << maxOpt << " ): ";
+		std::cout << "What would you like to do? (" << minOpt << "-";
+		std::cout << maxOpt << "): ";
 	}
 
 	/*
