@@ -52,14 +52,14 @@ namespace linkedList {
 		*/
 		std::cout << "\n\n";
 
-		std::cout << "You can do this actions to the list:\n";
+		std::cout << "You can do these actions to the list:\n";
 		std::cout << "\t1. Add an element to the tail of the list.\n";
 		std::cout << "\t2. Add an element to an specific position of the list.\n";
 		std::cout << "\t3. Remove an element from a position of the list.\n";
 		std::cout << "\t4. show an element from a position of the list.\n";
 		std::cout << "\t5. Exit the demo (and finish the program).\n";
-		std::cout << "What would you like to do? (" << minOpt << " - ";
-		std::cout << maxOpt << "): ";
+		std::cout << "What would you like to do? ( " << minOpt << " - ";
+		std::cout << maxOpt << " ): ";
 	}
 
 	/*
