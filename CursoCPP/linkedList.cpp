@@ -47,8 +47,8 @@ namespace linkedList {
 		std::cout << "The list currently look like this:\n";
 		linkedNum::printList(head);
 		/*
-		* Double list to separate the previous messages from 
-		* the list of options.
+		* Double line break to separate the previous messages 
+		* from the list of options.
 		*/
 		std::cout << "\n\n";
 
