@@ -10,7 +10,7 @@ namespace linkedList {
 		// The miminum possible value currently, for list interaction.
 		constexpr int MIN_OPTION{ 1 };
 		// The maximum possible value currently, for list interactionn.
-		constexpr int MAX_OPTION{ 5 };
+		constexpr int MAX_OPTION{ 6 };
 	}
 
 	/*
@@ -57,7 +57,8 @@ namespace linkedList {
 		std::cout << "\t2. Add an element to an specific position of the list.\n";
 		std::cout << "\t3. Remove an element from a position of the list.\n";
 		std::cout << "\t4. show an element from a position of the list.\n";
-		std::cout << "\t5. Exit the demo (and finish the program).\n";
+		std::cout << "\t5. get the index of an item on the list.\n";
+		std::cout << "\t6. Exit the demo (and finish the program).\n";
 		std::cout << "What would you like to do? (" << minOpt << "-";
 		std::cout << maxOpt << "): ";
 	}
@@ -199,6 +200,23 @@ namespace linkedList {
 		std::cout << "The number in position " << positionToAdd << " is " << nodeFound->data << " \n";
 	}
 
+	/* Interactive menu to search for an item in the list.
+	This method makes sure the index waas found by comparing the
+	resulting iindex with the size of the array.
+	*/
+	void searchInteractive(linkedNum::linkedInt *head) {
+		std::string question{ "What number would you like me to find? " };
+		std::cout << question;
+
+		int numberToSearch{ getNumberFromUsr(question) };
+		int indexFound{ linkedNum::searchIndex(&head, numberToSearch) };
+
+		if (indexFound >= head->size)
+			std::cout << "I coulnd't find " << numberToSearch << " on the list :C\n";
+		else
+			std::cout << "the number " << numberToSearch << " is on index " << indexFound + 1 << ".\n";
+	}
+
 	void mainDemo() {
 		std::cout << "Welcome to the interactive linked list demo!\n";
 		std::cout << "Here you can interact with a linked list data ";
@@ -238,10 +256,12 @@ namespace linkedList {
 				showPosInteract(list);
 				break;
 			case 5:
-				//End the demo.
-				runDemo = false;
+				//find item first index
+				searchInteractive(list);
 				break;
 			default:
+				//End the demo.
+				runDemo = false;
 				break;
 			}
 		}

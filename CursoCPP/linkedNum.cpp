@@ -56,6 +56,22 @@ namespace linkedNum {
     }
 
     /*
+    Uses the triple pointer operation to search for an item on the list.
+    If the item is not on the list, it will return the size of the list.
+    */
+    int searchIndex(linkedInt**pointToList, int dataToSearch) {
+        int currentIndex{ 0 };
+        linkedInt **currentPointer{ pointToList };
+
+        while (*currentPointer != nullptr && (*currentPointer)->data != dataToSearch ) {
+            currentPointer = &(*currentPointer)->next;
+            ++currentIndex;
+        }
+
+        return currentIndex;
+    }
+
+    /*
     Gets the node on the position specified by parameter.
     The position cannot be bigger than the size of the list.
     */
