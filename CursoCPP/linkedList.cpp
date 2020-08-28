@@ -1,6 +1,7 @@
 #include "linkedList.h"
 #include "linkedNum.h"
 #include <iostream>
+#include <limits>
 #include <new>
 #include <string>
 

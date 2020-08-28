@@ -1,6 +1,7 @@
 ﻿#include "linkedList.h"
 #include "stringArr.h"
 #include <iostream>
+#include <limits>
 #include <string>
 #include <sstream>
 
